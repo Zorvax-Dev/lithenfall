@@ -104,12 +104,9 @@ body {
 <style>
 html,body{margin:0;padding:0;width:100%;height:100%;min-height:100dvh;overflow:hidden;background:#07080c;overscroll-behavior:none;touch-action:none}
 body{position:fixed;inset:0}
-canvas{display:block;width:100%!important;height:100%!important;touch-action:none}
-#lith-rotate-guard{display:none;position:fixed;inset:0;z-index:999999;background:radial-gradient(circle at 50% 40%,#162631 0%,#090b10 58%,#050609 100%);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:32px;color:#eefaff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-#lith-rotate-guard img{width:min(72vw,440px);height:auto;filter:drop-shadow(0 0 22px rgba(82,210,255,.28));margin-bottom:24px}
-#lith-rotate-guard strong{font-size:22px;letter-spacing:.06em}
-#lith-rotate-guard span{margin-top:8px;color:#9eb8c5;font-size:15px}
-@media (orientation:landscape){#lith-rotate-guard{display:flex}canvas{visibility:hidden}}
+canvas{display:block;width:100%!important;height:100%!important;visibility:visible!important;touch-action:none}
+/* Godot's generated Web bootstrap is intentionally hidden: LITHENFALL has its own polished boot scene. */
+#status,#status-splash,#status-progress,#status-notice{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
 </style>
 
 </head>
@@ -123,14 +120,14 @@ canvas{display:block;width:100%!important;height:100%!important;touch-action:non
 		</noscript>
 
 		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
+			<img id="status-splash" class="show-image--false fullsize--true use-filter--true" src="index.png" alt="">
 			<progress id="status-progress"></progress>
 			<div id="status-notice"></div>
 		</div>
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":33574488,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":33572820,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -237,13 +234,6 @@ const engine = new Engine(GODOT_CONFIG);
 	
 <script>
 (function(){
-  const guard = document.createElement('div');
-  guard.id = 'lith-rotate-guard';
-  guard.innerHTML = '<img src="lithenfall_logo.png" alt="LITHENFALL"><strong>MODE PORTRAIT</strong><span>Tourne ton iPhone pour reprendre la descente.</span>';
-  document.body.appendChild(guard);
-
-  try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('portrait').catch(()=>{}); } catch(e) {}
-
   function configureIOSAudioSession(){
     try {
       if (navigator.audioSession) navigator.audioSession.type = 'playback';
