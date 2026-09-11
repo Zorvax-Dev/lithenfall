@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		
 		<title>LITHENFALL</title>
 		<style>
 html, body, #canvas {
@@ -92,8 +92,22 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#07080c"><style>html,body{margin:0;padding:0;background:#07080c;overscroll-behavior:none;touch-action:none}canvas{touch-action:none}</style>
-	</head>
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#07080c"><style>html,body{margin:0;padding:0;background:#07080c;overscroll-behavior:none;touch-action:none}canvas{touch-action:none}</style>
+	
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LITHENFALL">
+<meta name="theme-color" content="#07080c">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;min-height:100dvh;overflow:hidden;background:#07080c;overscroll-behavior:none;touch-action:none}
+body{position:fixed;inset:0}
+canvas{display:block;width:100%!important;height:100%!important;touch-action:none}
+</style>
+
+</head>
 	<body>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
@@ -111,7 +125,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":33555172,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":33558900,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -215,6 +229,25 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 }());
 		</script>
-	</body>
+	
+<script>
+(function(){
+  function configureIOSAudioSession(){
+    try {
+      if (navigator.audioSession) navigator.audioSession.type = 'playback';
+    } catch(e) {}
+  }
+  configureIOSAudioSession();
+  window.addEventListener('pointerdown', configureIOSAudioSession, {passive:true});
+  window.addEventListener('touchstart', configureIOSAudioSession, {passive:true});
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) configureIOSAudioSession(); });
+
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js", {updateViaCache:"none"}));
+  }
+})();
+</script>
+
+</body>
 </html>
 
