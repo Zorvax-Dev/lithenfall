@@ -1,4 +1,4 @@
-const CACHE = "lithenfall-v11-premium";
+const CACHE = "lithenfall-v11-1-mobile";
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll([
     "./",
